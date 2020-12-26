@@ -4,4 +4,6 @@ This website shows a gradient background by selecting two colors. It then genera
 
 I used HTML, SCSS, Vanila JavaScript and [clipboard.js](https://clipboardjs.com/) library.
 
-![Desktop Preview](./images/desktop-preview.png)
+[→ Go to this site](https://background-generator-ashen.vercel.app/)
+
+![Desktop Preview](./images/desktop-preview.PNG)

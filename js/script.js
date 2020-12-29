@@ -1,6 +1,11 @@
 var bgWrapperClass = ".background-wrapper";
 var colorPickerClass = ".gradient-color-picker";
 var currentBgClass = ".current-background";
+var gradientSettingClass = ".gradient-setting";
+var circularSliderClass = ".circular-slider";
+var radialButtonClassFull = gradientSettingClass + "__radial-button";
+var linearButtonClassFull = gradientSettingClass + "__linear-button";
+var circularSliderClassFull = gradientSettingClass + "__circular-slider";
 var clipboardWrapperClassFull = bgWrapperClass + "__clipboard-wrapper";
 
 var bgWrapper = document.querySelector(bgWrapperClass);
@@ -11,16 +16,14 @@ var currentBgContent = document.querySelector(currentBgClass + "__content");
 var colorFirst = document.querySelector(colorPickerClass + "__color-first");
 var colorSecond = document.querySelector(colorPickerClass + "__color-second");
 var colorRandom = document.querySelector(colorPickerClass + "__color-random");
-var currentBgClipBoard = null;
+var linearButton = document.querySelector(linearButtonClassFull);
+var radialButton = document.querySelector(radialButtonClassFull);
+var circularSlider = document.querySelector(circularSliderClassFull);
+var angleValue = document.querySelector(circularSliderClass + "__slider");
 
-function setGradient(color1, color2) {
-  bgWrapper.style.background =
-    "linear-gradient(to right, " + color1 + ", " + color2 + ")";
-  currentBgContent.textContent = bgWrapper.style.background;
-  if (ClipboardJS.isSupported()) {
-    currentBg.setAttribute("data-clipboard-text", bgWrapper.style.background);
-  }
-}
+var currentBgClipBoard = null;
+var currentGradientAngle = 0;
+var gradientIsLinear = true;
 
 function getRandomRgb() {
   var rgbDec = [
@@ -38,18 +41,52 @@ function getRandomRgb() {
   return rgbHex;
 }
 
+function setGradient(color1, color2, isLinear, angle) {
+  bgWrapper.style.background =
+    "linear-gradient(" + angle + "deg," + color1 + ", " + color2 + ")";
+  if (!isLinear) {
+    bgWrapper.style.background =
+      "radial-gradient( circle," + color1 + ", " + color2 + ")";
+  }
+  currentBgContent.textContent = bgWrapper.style.background;
+  if (ClipboardJS.isSupported()) {
+    currentBg.setAttribute("data-clipboard-text", bgWrapper.style.background);
+  }
+}
+
 function randomGradient() {
   var color1 = getRandomRgb();
   var color2 = getRandomRgb();
-  setGradient(color1, color2);
   colorFirst.value = color1;
   colorSecond.value = color2;
+  setGradient(color1, color2, gradientIsLinear, currentGradientAngle);
 }
 
 function specificGradient() {
   var color1 = colorFirst.value;
   var color2 = colorSecond.value;
-  setGradient(color1, color2);
+  setGradient(color1, color2, gradientIsLinear, currentGradientAngle);
+}
+
+function setGradientLinear() {
+  gradientIsLinear = true;
+  linearButton.classList.add("gradient-setting__linear-button--select");
+  radialButton.classList.remove("gradient-setting__radial-button--select");
+  circularSlider.classList.remove("gradient-setting__circular-slider--hidden");
+  setGradientAngle();
+}
+
+function setGradientRadial() {
+  gradientIsLinear = false;
+  linearButton.classList.remove("gradient-setting__linear-button--select");
+  radialButton.classList.add("gradient-setting__radial-button--select");
+  circularSlider.classList.add("gradient-setting__circular-slider--hidden");
+  specificGradient();
+}
+
+function setGradientAngle() {
+  currentGradientAngle = angleValue.value;
+  specificGradient();
 }
 
 function showCopiedTooltip() {
@@ -60,9 +97,12 @@ function hideCopiedTooltip() {
   copiedTooltip.style.display = "none";
 }
 
+angleValue.addEventListener("input", setGradientAngle);
 colorFirst.addEventListener("input", specificGradient);
 colorSecond.addEventListener("input", specificGradient);
 colorRandom.addEventListener("click", randomGradient);
+linearButton.addEventListener("click", setGradientLinear);
+radialButton.addEventListener("click", setGradientRadial);
 
 if (ClipboardJS.isSupported()) {
   currentBgClipBoard = new ClipboardJS(currentBg);
@@ -73,4 +113,5 @@ if (ClipboardJS.isSupported()) {
   currentBg.style.cursor = "default";
 }
 
+setGradientLinear();
 randomGradient();

@@ -10,11 +10,20 @@ body {
   margin: 0;
 }
 
+button {
+  letter-spacing: 0.1rem;
+}
+
 button,
 input {
-  cursor: pointer;
   border: none;
   outline: none;
+  font-family: "Saira Extra Condensed", sans-serif;
+}
+
+button,
+input[type="color"] {
+  cursor: pointer;
 }
 
 html,
@@ -71,7 +80,7 @@ $background_content_width: 400px;
     width: $background_content_width;
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 10px;
-    transition: 0.3s;
+    transition: background-color 0.3s;
     box-sizing: border-box;
     text-align: center;
     user-select: none;
@@ -104,6 +113,14 @@ $background_content_width: 400px;
     }
   }
 
+  &__gradient-setting {
+    width: $background_content_width;
+    margin: 2.5rem 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
   @media screen and (max-width: 670px) {
     & {
       justify-content: center;
@@ -117,6 +134,7 @@ $background_content_width: 400px;
       padding: 1rem;
       justify-content: center;
     }
+    &__gradient-setting,
     &__clipboard-wrapper {
       width: calc(100% - 2rem);
       margin: 1rem 1rem;
@@ -150,7 +168,8 @@ $background_content_width: 400px;
   }
 
   &__color-random {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    padding: 0 1em;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.6);
   }
@@ -162,6 +181,70 @@ $background_content_width: 400px;
   }
 }
 
+.gradient-setting {
+  &__circular-slider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-right: 10%;
+
+    &--hidden {
+      visibility: hidden;
+    }
+  }
+
+  &__linear-radial {
+    display: flex;
+    align-items: center;
+  }
+  &__linear-button {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  &__radial-button {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  &__linear-button,
+  &__radial-button {
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    padding: 0.3rem 0.4rem;
+    color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(255, 255, 255, 0.4);
+
+    &--select {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+  }
+}
+
+.circular-slider {
+  &__slider {
+    appearance: none;
+    outline: none;
+    width: 100%;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 25px;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 100%;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #fff;
+      cursor: pointer;
+    }
+  }
+}
 /*----------------------------
 	Footer (Author Mark)
 ----------------------------*/
@@ -171,7 +254,7 @@ $background_content_width: 400px;
   bottom: 3rem;
   right: 0;
 
-  @media screen and (max-height: 500px) {
+  @media screen and (max-height: 550px) {
     & {
       display: none;
     }

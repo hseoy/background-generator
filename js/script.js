@@ -2,10 +2,10 @@ var bgWrapperClass = ".background-wrapper";
 var colorPickerClass = ".gradient-color-picker";
 var currentBgClass = ".current-background";
 var gradientSettingClass = ".gradient-setting";
-var circularSliderClass = ".circular-slider";
+var angleSliderClass = ".angle-slider";
 var radialButtonClassFull = gradientSettingClass + "__radial-button";
 var linearButtonClassFull = gradientSettingClass + "__linear-button";
-var circularSliderClassFull = gradientSettingClass + "__circular-slider";
+var angleSliderClassFull = gradientSettingClass + "__angle-slider";
 var clipboardWrapperClassFull = bgWrapperClass + "__clipboard-wrapper";
 
 var bgWrapper = document.querySelector(bgWrapperClass);
@@ -18,8 +18,8 @@ var colorSecond = document.querySelector(colorPickerClass + "__color-second");
 var colorRandom = document.querySelector(colorPickerClass + "__color-random");
 var linearButton = document.querySelector(linearButtonClassFull);
 var radialButton = document.querySelector(radialButtonClassFull);
-var circularSlider = document.querySelector(circularSliderClassFull);
-var angleValue = document.querySelector(circularSliderClass + "__slider");
+var angleSlider = document.querySelector(angleSliderClassFull);
+var angleValue = document.querySelector(angleSliderClass + "__slider");
 
 var currentBgClipBoard = null;
 var currentGradientAngle = 0;
@@ -72,7 +72,7 @@ function setGradientLinear() {
   gradientIsLinear = true;
   linearButton.classList.add("gradient-setting__linear-button--select");
   radialButton.classList.remove("gradient-setting__radial-button--select");
-  circularSlider.classList.remove("gradient-setting__circular-slider--hidden");
+  angleSlider.classList.remove("gradient-setting__angle-slider--hidden");
   setGradientAngle();
 }
 
@@ -80,7 +80,7 @@ function setGradientRadial() {
   gradientIsLinear = false;
   linearButton.classList.remove("gradient-setting__linear-button--select");
   radialButton.classList.add("gradient-setting__radial-button--select");
-  circularSlider.classList.add("gradient-setting__circular-slider--hidden");
+  angleSlider.classList.add("gradient-setting__angle-slider--hidden");
   specificGradient();
 }
 

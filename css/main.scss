@@ -182,7 +182,7 @@ $background_content_width: 400px;
 }
 
 .gradient-setting {
-  &__circular-slider {
+  &__angle-slider {
     display: flex;
     align-items: center;
     width: 100%;
@@ -219,7 +219,7 @@ $background_content_width: 400px;
   }
 }
 
-.circular-slider {
+.angle-slider {
   &__slider {
     appearance: none;
     outline: none;
